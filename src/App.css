@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Rajdhani:wght@500&family=Source+Code+Pro:wght@500&display=swap');
+
+.App {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+    font-family: 'Indie Flower', cursive;
+font-family: 'Rajdhani', sans-serif;
+font-family: 'Source Code Pro', monospace;
+  }
+  
+  textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid rgb(122, 122, 122);
+    outline: none;
+    border-radius: 5px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #bcb7ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  .disabled{
+    padding: 10px 20px;
+    background-color: #686681;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  .disabled:hover{
+    background-color: #6f6e80;
+  }
+  button:hover {
+    background-color: #aca7e9;
+  }
+
+
+  div {
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    margin-top: 15px;
+  }
+
+  .user-info {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .TododBy {
+    background-color: #cbc7fb; 
+    font-weight: bold; 
+  }
+
+  .SignInButton{
+    padding: 10px 10px;
+    background-color: #bcb7ff;
+    color: #fff;
+    width:100px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+
+  }
