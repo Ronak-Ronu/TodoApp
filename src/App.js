@@ -3,13 +3,13 @@ import {db,auth} from "./firebase-config"
 import "./App.css";
 import {GoogleAuthProvider,signInWithPopup,signOut} from "firebase/auth";
 
-import {collection,addDoc,onSnapshot, deleteDoc, doc} from "firebase/firestore"
-import { async } from '@firebase/util';
+import {collection,addDoc,onSnapshot, deleteDoc, doc,updateDoc} from "firebase/firestore"
  
 function App() {
   const [todos,setTodos]=useState([]);
   const [createmytodo, setCreatemytodo] = useState("")
   const [username,setUsername]=useState("");
+  // const [id,setId]=useState("");
 
   const todocollections = collection(db,"TodoCollections");
 
@@ -31,16 +31,27 @@ function App() {
 
   }
 
+  const handleUpdate = async(id,todo)=>{
+
+
+    const docRef = doc(db, "TodoCollections", id);
+    setCreatemytodo(todo);
+    const updatedData = {
+      Todo:createmytodo
+    };
+    await updateDoc(docRef, updatedData);
+    // alert(todo)
+  }
+
   const handleSignOut = async()=>{
-   
    try {
     await signOut(auth);
+    setUsername("");
+    console.log("signout");
    } catch (error) {
           console.log(error);
           alert(error)
    }
-   
-    
   }
 
 
@@ -65,7 +76,7 @@ function App() {
       await deleteDoc(doc(db,"TodoCollections",id));
     }
     else{
-      alert();
+      alert("first sign in ");
     }
   }
 
@@ -96,7 +107,6 @@ function App() {
               </div>
             )
             )
-            
           }
         
             </div>
@@ -105,20 +115,23 @@ function App() {
            
            <div>   
             
+          <div className="SignInButton" onClick={handleSignOut}>Sign OUT</div>
+
                <textarea 
       rows={2} 
       cols={30}
-      defaultValue="Hey Todo !"
+      value={createmytodo}
       onChange={(e)=>{
+
         setCreatemytodo(e.target.value)
     
       }}/>
+
       <br />
 
 
 
       <button  onClick={CreateTodo}>Create Todo</button>
-
 
 
   
@@ -127,7 +140,35 @@ function App() {
           (
             <div key={todo.id}>
                 {/* <img src={photo} alt="" /> */}
-                    <p>  <span className='TododBy'>{todo.TododBy}</span> {todo.Todo} &nbsp;&nbsp;&nbsp; <button onClick={()=>{DeleteTodo(todo.id)}}>Completed</button> </p>
+                {/* {setId(todo.id)} */}
+                {username== todo.TododBy ?(
+                  <div>
+
+  <p>  <span className='TododBy'>{todo.TododBy}</span> {todo.Todo} &nbsp;&nbsp;&nbsp; 
+  <button onClick={()=>{DeleteTodo(todo.id)}}>Completed</button>&nbsp;&nbsp;
+
+  <button onClick={()=>{handleUpdate(todo.id,todo.Todo)}}>Edit</button>  </p>
+</div>
+                ):(
+
+
+
+<div>
+<p>  <span className='TododBy'>{todo.TododBy}</span> {todo.Todo} &nbsp;&nbsp;&nbsp; 
+  <button  className="disabled" disabled onClick={()=>{DeleteTodo(todo.id)}}>Completed</button>&nbsp;&nbsp;
+
+  <button className="disabled" disabled onClick={()=>{handleUpdate(todo.id,todo.Todo)}}>Edit</button>  </p>
+</div>
+
+
+                )
+                
+              }
+                    
+                    
+                    
+                    
+                    
               </div>
             )
             )
